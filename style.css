@@ -13,12 +13,12 @@ body {
 }
 
 main {
-  height: 80vh;
+  height: 530px;
 }
 
 #calculator {
   margin: 10px auto;
-  width: 400px;
+  max-width: 380px;
   /* padding-top: 5%; */
   /* margin-top: 100px; */
   height: 100%;
@@ -121,11 +121,25 @@ button:active {
 }
 
 #display-text {
-  padding: 50px 0;
+  padding-top: 50px;
+  padding-bottom: 33px;
   font-weight: 500;
   font-size: 40px;
   padding-right: 10px;
-  overflow-x: scroll;
+  overflow-x: auto;
+}
+
+#display-text::-webkit-scrollbar {
+  width: 1px;
+}
+#display-text::-webkit-scrollbar-track {
+  background: #ffffff; 
+}
+#display-text::-webkit-scrollbar-thumb {
+  background: #dadada; 
+}
+#display-text::-webkit-scrollbar-thumb:hover {
+  background: #dadada; 
 }
 
 .operators {
