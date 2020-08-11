@@ -12,7 +12,7 @@ value and repeat it again. It can go like this:
 2. [ ] Then presses an operator so store the currentExp at this point in operand1.
 3. [ ] Also store the operator presed in another variable
   When this is pressed turn the operationUnderway to false.
-4. [ ]Then types the next number/operand.
+4. [ ] Then types the next number/operand.
 5. [ ] Then user presses another operator this time, the operate function fires up, 
   with the values from operand1 and 2, and operator.
 6. [ ] To find if the user has already pressed another operator use the operationUnderway 
