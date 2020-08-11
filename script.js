@@ -20,7 +20,14 @@ const multiply = document.querySelector("#multiply"),
   decimal = document.querySelector("#decimal"),
   equals = document.querySelector("#equals");
 
-const displayValNodes = document.querySelectorAll(".displayValue");
+const numbersNodes = document.querySelectorAll(".number");
+const operators = document.querySelectorAll(".operators");
+
+let currentExp;
+let operand1;
+let operand2;
+let operatorChosen;
+let operationUnderway = false;
 
 const operations = {
   "+": function (a, b) {
@@ -37,15 +44,30 @@ const operations = {
   },
 };
 
-const operate = (a, operator, b) => {
+function operate(a, operator, b) {
+  a = parseInt(a);
+  b = parseInt(b);
   return operations[operator.toString()](a, b);
-};
-
-function addValue(item) {
-  item.addEventListener("click", (item) => {
-    display.textContent += item.target.value;
-    console.log(item.target.value);
-  });
 }
 
-displayValNodes.forEach((item) => addValue(item));
+function numPressed(item) {
+  item.addEventListener("click", (item) => {
+    display.textContent += item.target.value;
+    currentExp == undefined
+      ? (currentExp = item.target.value)
+      : (currentExp += item.target.value);
+    currentExp = parseInt(currentExp);
+    console.log(currentExp);
+  });
+}
+numbersNodes.forEach((item) => numPressed(item));
+
+function clearValues() {
+  display.textContent = "";
+  currentExp = null;
+}
+clear.addEventListener("click", clearValues);
+
+/* 
+1
+*/
