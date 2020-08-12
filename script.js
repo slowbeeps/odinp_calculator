@@ -1,13 +1,10 @@
 const clearBtn = document.querySelector("#clear"),
   display = document.querySelector("#display-text"),
-  equalBtn = document.querySelector("#equals");
-refresh = document.querySelector("#refresh");
+  equalBtn = document.querySelector("#equals"),
+  refresh = document.querySelector("#refresh");
 
 const numBtns = document.querySelectorAll(".number");
 const opBtns = document.querySelectorAll(".operators");
-
-let displayedExp,
-  finalResult = 0;
 
 let currentExp,
   operand1,
@@ -39,6 +36,14 @@ function operate(a, operator, b) {
   return operations[operator.toString()](a, b);
 }
 
+function operateOnCurrent(a, operator, b) {
+  let splitExp = currentExp.split(regEx);
+  operand1 = +splitExp[0];
+  operand2 = +splitExp[1];
+  let result = operate(operand1, opChosen, operand2);
+  return result;
+}
+
 refresh.addEventListener("click", () => {
   window.location.reload();
 });
@@ -52,34 +57,47 @@ function numPressed(item) {
   });
 }
 
-// just make it so,when you press an op second time it calls operate and stores that in opeand1 too.
+// operators and their functions
 opBtns.forEach((item) => opPressed(item));
+
 function opPressed(item) {
   item.addEventListener("click", (item) => {
-    if (firstOpDone == true) {
-      opChosen = item.target.value;
-      let splitExp = currentExp.split(regEx);
-      operand1 = +splitExp[0];
-      operand2 = +splitExp[1];
-      let result = operate(operand1, opChosen, operand2);
-      display.textContent = result + opChosen;
-      currentExp = result + opChosen;
-      console.log(currentExp);
-    } else if (firstOpDone == false) {
-      opChosen = item.target.value;
-      display.textContent += opChosen;
-      currentExp
-        ? (currentExp += opChosen)
-        : console.log("choose an operand first");
-      firstOpDone = true;
-    }
+    if (firstOpDone == true) firstOpPressed(item);
+    else if (firstOpDone == false) pressingFirstOp(item);
   });
 }
 
-// works for simple operand and operand: for now
+function firstOpPressed(item) {
+  let result = operateOnCurrent(operand1, opChosen, operand2);
+  display.textContent = result + item.target.value;
+  opChosen = item.target.value;
+  currentExp = result + item.target.value;
+}
+
+function pressingFirstOp(item) {
+  opChosen = item.target.value;
+  display.textContent += item.target.value;
+  currentExp
+    ? (currentExp += opChosen)
+    : console.log("choose an operand first");
+  firstOpDone = true;
+}
+
+// clear and equals
+clearBtn.addEventListener("click", () => {
+  (currentExp = undefined),
+    (operand1 = undefined),
+    (operand2 = undefined),
+    (opChosen = undefined),
+    (firstOpDone = false),
+    (display.textContent = "");
+});
+
 equalBtn.addEventListener("click", () => {
-  let splitExp = currentExp.split(regEx);
-  operand1 = +splitExp[0];
-  operand2 = +splitExp[1];
-  display.textContent = operate(operand1, opChosen, operand2);
+  if (firstOpDone == true) {
+    let result = operateOnCurrent(operand1, opChosen, operand2);
+    display.textContent = result;
+  } else if (firstOpDone == false) {
+    display.textContent = operateOnCurrent(operand1, opChosen, operand2);
+  }
 });
