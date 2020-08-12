@@ -1,5 +1,7 @@
 # The OdinProject Calculator
 
+*These are just my thoughts/planning/Todo that I'd been writing in comments untill now*
+
 Goal: 2 + 7 - 5 * 3 = 42, That is how it should work, perform operations with two operands at a
 time from left to right. There are a bunch of options to do that (probably), 
 
@@ -47,8 +49,13 @@ Most of this is the same as above, just I'll try using regex to split the two op
     - If it is false, then start from number 2.
   2. User presses (=).
       - in this case, I need to display the result for currentExp too.
+      - done already.
 
-Wait, for now I'll try this much.
+
+Ok so, it's done now. It turns out I was just messing up the order insinde the conditionals.
+This one was pretty fun too, and I tried to keep the JS, as free of this thing people call
+"callback hell", where you just nest the living shit out of everything. And It just ends up looking
+ugly and hard to read. 
 
   
         
