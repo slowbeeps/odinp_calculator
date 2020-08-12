@@ -21,53 +21,38 @@ const multiply = document.querySelector("#multiply"),
   equals = document.querySelector("#equals");
 
 const numbersNodes = document.querySelectorAll(".number");
-const operators = document.querySelectorAll(".operators");
+const operatorsNodes = document.querySelectorAll(".operators");
 
-let currentExp;
-let operand1;
-let operand2;
-let operatorChosen;
-let operationUnderway = false;
+let displayedExp,
+  finalResult = 0;
+
+let currentExp,
+  operand1,
+  operand2,
+  opChosen,
+  opUnderway = false;
+
+let regEx = /\+|\-|\÷|\×/g;
 
 const operations = {
   "+": function (a, b) {
     return a + b;
   },
-  "-": function (a, b) {
+  "−": function (a, b) {
     return a - b;
   },
-  "*": function (a, b) {
+  "×": function (a, b) {
     return a * b;
   },
-  "/": function (a, b) {
+  "÷": function (a, b) {
     return a / b;
+  },
+  "%": function (a, b) {
+    return a % b;
   },
 };
 
 function operate(a, operator, b) {
-  a = parseInt(a);
-  b = parseInt(b);
   return operations[operator.toString()](a, b);
 }
 
-function numPressed(item) {
-  item.addEventListener("click", (item) => {
-    display.textContent += item.target.value;
-    currentExp == undefined
-      ? (currentExp = item.target.value)
-      : (currentExp += item.target.value);
-    currentExp = parseInt(currentExp);
-    console.log(currentExp);
-  });
-}
-numbersNodes.forEach((item) => numPressed(item));
-
-function clearValues() {
-  display.textContent = "";
-  currentExp = null;
-}
-clear.addEventListener("click", clearValues);
-
-/* 
-1
-*/
