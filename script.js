@@ -1,27 +1,10 @@
-const clear = document.querySelector("#clear"),
-  display = document.querySelector("#display-text");
+const clearBtn = document.querySelector("#clear"),
+  display = document.querySelector("#display-text"),
+  equalBtn = document.querySelector("#equals");
+refresh = document.querySelector("#refresh");
 
-const seven = document.querySelector("#seven"),
-  eight = document.querySelector("#eight"),
-  nine = document.querySelector("#nine"),
-  four = document.querySelector("#four"),
-  five = document.querySelector("#five"),
-  six = document.querySelector("#six"),
-  one = document.querySelector("#one"),
-  two = document.querySelector("#two"),
-  three = document.querySelector("#three"),
-  add = document.querySelector("#add"),
-  zero = document.querySelector("#zero");
-
-const multiply = document.querySelector("#multiply"),
-  subtract = document.querySelector("#subtract"),
-  modulo = document.querySelector("#modulo"),
-  divide = document.querySelector("#divide"),
-  decimal = document.querySelector("#decimal"),
-  equals = document.querySelector("#equals");
-
-const numbersNodes = document.querySelectorAll(".number");
-const operatorsNodes = document.querySelectorAll(".operators");
+const numBtns = document.querySelectorAll(".number");
+const opBtns = document.querySelectorAll(".operators");
 
 let displayedExp,
   finalResult = 0;
@@ -30,21 +13,21 @@ let currentExp,
   operand1,
   operand2,
   opChosen,
-  opUnderway = false;
+  firstOpDone = false;
 
-let regEx = /\+|\-|\÷|\×/g;
+let regEx = /\+|\-|\/|\*/g;
 
 const operations = {
   "+": function (a, b) {
     return a + b;
   },
-  "−": function (a, b) {
+  "-": function (a, b) {
     return a - b;
   },
-  "×": function (a, b) {
+  "*": function (a, b) {
     return a * b;
   },
-  "÷": function (a, b) {
+  "/": function (a, b) {
     return a / b;
   },
   "%": function (a, b) {
@@ -56,3 +39,47 @@ function operate(a, operator, b) {
   return operations[operator.toString()](a, b);
 }
 
+refresh.addEventListener("click", () => {
+  window.location.reload();
+});
+
+numBtns.forEach((item) => numPressed(item));
+function numPressed(item) {
+  item.addEventListener("click", (item) => {
+    let numVal = item.target.value;
+    display.textContent += numVal;
+    currentExp ? (currentExp += numVal) : (currentExp = numVal);
+  });
+}
+
+// just make it so,when you press an op second time it calls operate and stores that in opeand1 too.
+opBtns.forEach((item) => opPressed(item));
+function opPressed(item) {
+  item.addEventListener("click", (item) => {
+    if (firstOpDone == true) {
+      opChosen = item.target.value;
+      let splitExp = currentExp.split(regEx);
+      operand1 = +splitExp[0];
+      operand2 = +splitExp[1];
+      let result = operate(operand1, opChosen, operand2);
+      display.textContent = result + opChosen;
+      currentExp = result + opChosen;
+      console.log(currentExp);
+    } else if (firstOpDone == false) {
+      opChosen = item.target.value;
+      display.textContent += opChosen;
+      currentExp
+        ? (currentExp += opChosen)
+        : console.log("choose an operand first");
+      firstOpDone = true;
+    }
+  });
+}
+
+// works for simple operand and operand: for now
+equalBtn.addEventListener("click", () => {
+  let splitExp = currentExp.split(regEx);
+  operand1 = +splitExp[0];
+  operand2 = +splitExp[1];
+  display.textContent = operate(operand1, opChosen, operand2);
+});
