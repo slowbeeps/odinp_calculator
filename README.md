@@ -37,17 +37,16 @@ Most of this is the same as above, just I'll try using regex to split the two op
   1. User presses another operator
     And now, another operator. This is where the actual calculation 
     for the last expression should happen.
-    - If operationUnderway is true:
-      ```javascript
-      let cExpArr = currentExp.split(regEx);
-      operand1 = cExpArr[0], operatorChosen /*already done*/, operand2 = cExpArr[1];
-      let finalReuslt += (operand1, operatorChosen, operand2);
-      ```
-    - Reset everything - all the currentExp things.
+      - If operationUnderway is true:
+        ```javascript
+        let cExpArr = currentExp.split(regEx);
+        operand1 = cExpArr[0], operatorChosen /*already done*/, operand2 = cExpArr[1];
+        let finalReuslt += (operand1, operatorChosen, operand2);
+        ```
+      - Reset everything - all the currentExp things.
     - If it is false, then start from number 2.
-  Or
   2. User presses (=).
-    - in this case, I need to display the result for currentExp too.
+      - in this case, I need to display the result for currentExp too.
 
 Wait, for now I'll try this much.
 
