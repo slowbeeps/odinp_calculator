@@ -16,21 +16,30 @@ let regEx = /\+|\-|\/|\*/g;
 
 const operations = {
   "+": function (a, b) {
-    return a + b;
+    let result =  a + b;
+    return roundToTwo(result);
   },
   "-": function (a, b) {
-    return a - b;
+    let result =  a - b;
+    return roundToTwo(result);
   },
   "*": function (a, b) {
-    return a * b;
+    let result =  a * b;
+    return roundToTwo(result);
   },
   "/": function (a, b) {
-    return a / b;
+    let result =  a / b;
+    return roundToTwo(result);
   },
   "%": function (a, b) {
-    return a % b;
+    let result =  a % b;
+    return roundToTwo(result);
   },
 };
+
+function roundToTwo(num) {    
+  return +(Math.round(num + "e+2")  + "e-2");
+}
 
 function operate(a, operator, b) {
   return operations[operator.toString()](a, b);
