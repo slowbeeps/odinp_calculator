@@ -57,5 +57,29 @@ This one was pretty fun too, and I tried to keep the JS, as free of this thing p
 "callback hell", where you just nest the living shit out of everything. And It just ends up looking
 ugly and hard to read. 
 
+#### Update after a month:
+Actually it's not done YET.
+
+One major thing was that when something results in a negaive answer the regex split(/[\/+-*]/) stopped working
+as it just splits at the first one, and nothing remains for the first operand.
+
+I fixed it by adding a function to split the expressions, which uses a different regex if the first operand is 
+negative and if it is not. This part was actually pretty fun, writing the regex was fun as well, I learned about
+capturing groups and the match function. So I used those two things and wrote the regex and it works now.
+
+There were some other things that needed to be fixed like:
+1. When someone types a no. after completing an operation and it just adds to the previous result.
+2. You can't type negative numbers 
+3. When someone presses an operator after pressing another operator
+4. Divide by zero error
+5. When someone presses an operator without choosing any operands
+
+I've fixed the last three by adding error messages. The first two still remain.
+
+
+
+
+
+
   
         
