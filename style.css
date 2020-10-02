@@ -152,7 +152,17 @@ button:active {
 .operators:active {
   background-color: #c8a900
 }
-
 .utility {
   background-color: rgb(240, 240, 240);
+}
+
+#errors {
+  margin: 10px auto;
+  max-width: 380px;
+  /* padding-top: 5%; */
+  /* margin-top: 100px; */
+  text-align: center;
+  font-family:'Courier New', Courier, monospace;
+  font-weight: bold;
+  font-size: 25px;
 }
