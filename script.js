@@ -12,18 +12,6 @@ let currentExp,
   opChosen,
   firstOpDone = false;
 
-let regEx = /\+|\-|\/|\*/g, negRegEx = /(?:\-\d+\s*)([\-\+\/*])/;
-
-function splitCurrent(currentExp) {
-  if (currentExp.match(/^\-/)) {
-    return currentExp.split(negRegEx)
-  } else return currentExp.split(regEx)
-}
-
-/* 
-When ther's a minus in front split on the second - and first [*+/] 
-*/
-
 const operations = {
   "+": function (a, b) {
     let result =  a + b;
@@ -55,10 +43,17 @@ function operate(a, operator, b) {
   return operations[operator.toString()](a, b);
 }
 
+let regEx = /(\d+)\s*([\-\+\/\*])\s*(\d+)/, negRegEx = /(\-\d+)\s*([\-\+\/*])(\s*\d*)/;
+function splitCurrent(currentExp) {
+  if ((/^\-/).test(currentExp)) {
+    return currentExp.match(negRegEx)
+  } else return currentExp.match(regEx)
+}
+
 function operateOnCurrent(a, operator, b) {
   let splitExp = splitCurrent(currentExp);
-  operand1 = parseInt(splitExp[0]); // here's the problem: it detects -1 and - as the regex split, so Nan.
-  operand2 = parseInt(splitExp[1]);
+  operand1 = parseInt(splitExp[1]); // here's the problem: it detects -1 and - as the regex split, so Nan.
+  operand2 = parseInt(splitExp[3]);
   let result = operate(operand1, opChosen, operand2);
   return result;
 }
